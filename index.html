@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny Rising - Гід по рибалці</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="animated-bg" id="animated-bg"></div>
+    
+    <header>
+        <h1>Destiny Rising - Гід по рибалці</h1>
+        <div class="mode-toggle">
+            <button id="beauty-mode" class="mode-btn">Краса</button>
+            <button id="performance-mode" class="mode-btn">Продуктивність</button>
+        </div>
+    </header>
+    
+    <main>
+        <section id="fish-section">
+            <div class="controls">
+                <div class="sort-controls">
+                    <div class="sort-left">
+                        <label>Сортування:</label>
+                        <div class="sort-buttons" id="sort-buttons">
+                            <div class="sort-toggle active" data-sort="name">За назвою</div>
+                            <div class="sort-toggle" data-sort="rarity">За рідкістю</div>
+                            <div class="sort-toggle" data-sort="price">За ціною</div>
+                        </div>
+                    </div>
+                    <div class="size-controls">
+                        <div class="size-toggle" data-size="small">▪▪</div>
+                        <div class="size-toggle active" data-size="medium">■■</div>
+                        <div class="size-toggle" data-size="large">⬛⬛</div>
+                    </div>
+                </div>
+                
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label>Наживка:</label>
+                        <div id="bait-filters"></div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Місце:</label>
+                        <div id="location-filters"></div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Рідкість:</label>
+                        <div id="rarity-filters"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="fish-grid"></div>
+        </section>
+    </main>
+
+    <div id="fish-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-fish-details"></div>
+        </div>
+    </div>
+
+    <div id="performance-tooltip" class="performance-tooltip">
+        Увага! Режим краси використовує інтенсивні візуальні ефекти, які можуть навантажувати відеокарту та сповільнювати роботу на слабких пристроях.
+    </div>
+
+    <script src="js/data/baits.js"></script>
+    <script src="js/data/locations.js"></script>
+    <script src="js/data/fish.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
