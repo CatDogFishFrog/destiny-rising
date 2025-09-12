@@ -3,24 +3,88 @@ let currentSort = 'name';
 let currentSize = 'medium';
 let beautyModeShown = false;
 
+// Перевірка завантаження скриптів
+function waitForScripts() {
+    return new Promise((resolve) => {
+        const checkScripts = () => {
+            if (typeof baits !== 'undefined' && 
+                typeof fish !== 'undefined' && 
+                typeof fishingLocations !== 'undefined' &&
+                typeof locales_en !== 'undefined' &&
+                typeof locales_uk !== 'undefined' &&
+                typeof i18n !== 'undefined') {
+                resolve();
+            } else {
+                setTimeout(checkScripts, 50);
+            }
+        };
+        checkScripts();
+    });
+}
+
 // Ініціалізація
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await waitForScripts();
+    
     i18n.loadTranslations();
+    setupLanguageSelector();
     i18n.setLanguage(i18n.currentLang);
     createAnimatedBackground();
     initializeFilters();
     setupEventListeners();
     setupModeToggle();
-    setupLanguageSelector();
     displayFish();
 });
 
 function setupLanguageSelector() {
+    console.log('Setting up language selector...');
+    const langOptions = document.querySelectorAll('.lang-option');
+    console.log('Found language options:', langOptions.length);
+    
+    langOptions.forEach(option => {
+        // Прибираємо старі обробники
+        option.replaceWith(option.cloneNode(true));
+    });
+    
+    // Додаємо нові обробники
     document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
-            i18n.setLanguage(option.dataset.lang);
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const lang = this.getAttribute('data-lang');
+            console.log('Language clicked:', lang);
+            if (lang && lang !== i18n.currentLang) {
+                console.log('Switching to language:', lang);
+                i18n.setLanguage(lang);
+            }
+        });
+        
+        // Додаємо візуальний фідбек
+        option.addEventListener('mouseenter', function() {
+            this.style.opacity = '0.8';
+        });
+        option.addEventListener('mouseleave', function() {
+            this.style.opacity = '1';
         });
     });
+    
+    // Оновлюємо активну мову
+    updateLanguageSelector();
+}
+
+function updateLanguageSelector() {
+    const selector = document.getElementById('lang-selector');
+    if (selector) {
+        selector.querySelectorAll('.lang-option').forEach(option => {
+            const isActive = option.getAttribute('data-lang') === i18n.currentLang;
+            if (isActive) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    }
 }
 
 function showBeautyModeTooltip() {

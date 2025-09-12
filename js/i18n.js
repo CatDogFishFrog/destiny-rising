@@ -22,10 +22,12 @@ class I18n {
     }
 
     setLanguage(lang) {
-        this.currentLang = lang;
-        localStorage.setItem('destiny-fishing-lang', lang);
-        document.documentElement.lang = lang;
-        this.updateUI();
+        if (lang && (lang === 'en' || lang === 'uk')) {
+            this.currentLang = lang;
+            localStorage.setItem('destiny-fishing-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            this.updateUI();
+        }
     }
 
     t(key, data = {}) {
@@ -104,11 +106,9 @@ class I18n {
     }
 
     updateLanguageSelector() {
-        const selector = document.getElementById('lang-selector');
-        if (selector) {
-            selector.querySelectorAll('.lang-option').forEach(option => {
-                option.classList.toggle('active', option.dataset.lang === this.currentLang);
-            });
+        // Використовуємо функцію з app.js
+        if (typeof updateLanguageSelector === 'function') {
+            updateLanguageSelector();
         }
     }
 
