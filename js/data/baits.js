@@ -1,14 +1,5 @@
 const baits = [
     {
-        id: 0,
-        name: "Undiscovered",
-        rarity: 1,
-        description: "Поки що невідомо",
-        price: 0,
-        weeklyLimit: 0,
-        image: "images/baits/red_worm.png"
-    },
-    {
         id: 1,
         name: "Червоний хробак",
         rarity: 1,

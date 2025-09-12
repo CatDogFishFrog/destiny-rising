@@ -576,10 +576,46 @@ main {
     color: var(--text-primary);
 }
 
-.mode-toggle {
+.header-controls {
     position: absolute;
     top: 1rem;
     right: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.lang-selector {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.lang-option {
+    background: rgba(26, 31, 46, 0.6);
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.lang-option:hover {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.lang-option.active {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-gold));
+    color: #0a0e1a;
+    font-weight: 700;
+}
+
+.mode-toggle {
     display: flex;
     gap: 0;
     border: 1px solid var(--glass-border);
@@ -704,9 +740,12 @@ main {
         gap: 0.5rem;
     }
     
-    .mode-toggle {
+    .header-controls {
         position: static;
         margin-bottom: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
 
@@ -747,20 +786,23 @@ body.beauty-mode .controls {
 
 body.beauty-mode .sort-toggle,
 body.beauty-mode .filter-toggle,
-body.beauty-mode .size-toggle {
+body.beauty-mode .size-toggle,
+body.beauty-mode .lang-option {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
 body.beauty-mode .sort-toggle:hover,
 body.beauty-mode .filter-toggle:hover,
-body.beauty-mode .size-toggle:hover {
+body.beauty-mode .size-toggle:hover,
+body.beauty-mode .lang-option:hover {
     transform: translateY(-1px);
 }
 
 body.beauty-mode .sort-toggle.active,
 body.beauty-mode .filter-toggle.active,
-body.beauty-mode .size-toggle.active {
+body.beauty-mode .size-toggle.active,
+body.beauty-mode .lang-option.active {
     box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 }
 
@@ -868,7 +910,8 @@ body.beauty-mode .info-item:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-body.beauty-mode .mode-toggle {
+body.beauty-mode .mode-toggle,
+body.beauty-mode .lang-selector {
     backdrop-filter: blur(10px);
 }
 

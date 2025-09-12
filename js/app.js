@@ -5,12 +5,23 @@ let beautyModeShown = false;
 
 // Ініціалізація
 document.addEventListener('DOMContentLoaded', () => {
+    i18n.loadTranslations();
+    i18n.setLanguage(i18n.currentLang);
     createAnimatedBackground();
     initializeFilters();
     setupEventListeners();
     setupModeToggle();
+    setupLanguageSelector();
     displayFish();
 });
+
+function setupLanguageSelector() {
+    document.querySelectorAll('.lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+            i18n.setLanguage(option.dataset.lang);
+        });
+    });
+}
 
 function showBeautyModeTooltip() {
     const tooltip = document.getElementById('performance-tooltip');
@@ -52,7 +63,7 @@ function setupModeToggle() {
 function createAnimatedBackground() {
     const bg = document.getElementById('animated-bg');
     
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 15; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         bubble.style.left = Math.random() * 100 + '%';
@@ -67,22 +78,25 @@ function initializeFilters() {
     // Фільтри наживок
     const baitFilters = document.getElementById('bait-filters');
     baitFilters.className = 'filter-buttons';
+    baitFilters.innerHTML = '';
     baits.forEach(bait => {
-        const toggle = createFilterCheckbox(`bait-${bait.id}`, bait.name, 'bait');
+        const toggle = createFilterCheckbox(`bait-${bait.id}`, i18n.getBaitName(bait.id), 'bait');
         baitFilters.appendChild(toggle);
     });
 
     // Фільтри місць
     const locationFilters = document.getElementById('location-filters');
     locationFilters.className = 'filter-buttons';
+    locationFilters.innerHTML = '';
     fishingLocations.forEach(location => {
-        const toggle = createFilterCheckbox(`location-${location.id}`, location.name, 'location');
+        const toggle = createFilterCheckbox(`location-${location.id}`, i18n.getLocationName(location.id), 'location');
         locationFilters.appendChild(toggle);
     });
 
     // Фільтри рідкості
     const rarityFilters = document.getElementById('rarity-filters');
     rarityFilters.className = 'filter-buttons';
+    rarityFilters.innerHTML = '';
     for (let i = 1; i <= 6; i++) {
         const toggle = createFilterCheckbox(`rarity-${i}`, `${i}★`, 'rarity');
         rarityFilters.appendChild(toggle);
@@ -186,14 +200,16 @@ function displayFish() {
     const sortedFish = sortFish(filteredFish);
     
     container.innerHTML = sortedFish.map(fishItem => {
+        const fishName = i18n.getFishName(fishItem.id);
+        const baitName = i18n.getBaitName(fishItem.favoriteBait);
         const bait = baits.find(b => b.id === fishItem.favoriteBait);
         
         return `
             <div class="fish-card rarity-${fishItem.rarity}" onclick="openFishModal(${fishItem.id})">
-                <img src="${fishItem.image}" alt="${fishItem.name}" class="fish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU2IiBoZWlnaHQ9IjE1NiIgdmlld0JveD0iMCAwIDE1NiAxNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTYiIGhlaWdodD0iMTU2IiBmaWxsPSIjMzQ0OTVlIi8+Cjx0ZXh0IHg9Ijc4IiB5PSI4NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZWNmMGYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5GaXNoPC90ZXh0Pgo8L3N2Zz4K'">
+                <img src="${fishItem.image}" alt="${fishName}" class="fish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU2IiBoZWlnaHQ9IjE1NiIgdmlld0JveD0iMCAwIDE1NiAxNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTYiIGhlaWdodD0iMTU2IiBmaWxsPSIjMzQ0OTVlIi8+Cjx0ZXh0IHg9Ijc4IiB5PSI4NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZWNmMGYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5GaXNoPC90ZXh0Pgo8L3N2Zz4K'">
                 <div class="fish-header">
-                    <div class="fish-name">${fishItem.name}</div>
-                    <img src="${bait?.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMzQ0OTVlIi8+Cjx0ZXh0IHg9IjEyIiB5PSIxNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjgiIGZpbGw9IiNlY2YwZjEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkI8L3RleHQ+Cjwvc3ZnPgo='}" alt="${bait?.name || 'Наживка'}" class="bait-icon">
+                    <div class="fish-name">${fishName}</div>
+                    <img src="${bait?.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMzQ0OTVlIi8+Cjx0ZXh0IHg9IjEyIiB5PSIxNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjgiIGZpbGw9IiNlY2YwZjEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkI8L3RleHQ+Cjwvc3ZnPgo='}" alt="${baitName}" class="bait-icon">
                 </div>
             </div>
         `;
@@ -204,37 +220,39 @@ function displayFish() {
 
 function openFishModal(fishId) {
     const fishItem = fish.find(f => f.id === fishId);
-    const bait = baits.find(b => b.id === fishItem.favoriteBait);
+    const fishName = i18n.getFishName(fishId);
+    const fishDescription = i18n.getFishDescription(fishId);
+    const baitName = i18n.getBaitName(fishItem.favoriteBait);
     const locations = fishItem.locations.map(locId => 
-        fishingLocations.find(loc => loc.id === locId)?.name
+        i18n.getLocationName(locId)
     ).join(', ');
 
     const modalContent = document.getElementById('modal-fish-details');
     modalContent.innerHTML = `
         <div class="modal-fish-info rarity-${fishItem.rarity}">
-            <img src="${fishItem.largeImage}" alt="${fishItem.name}" class="modal-fish-image" onerror="this.src='${fishItem.image}'">
-            <h2 class="modal-fish-name">${fishItem.name}</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6;">${fishItem.description}</p>
+            <img src="${fishItem.largeImage}" alt="${fishName}" class="modal-fish-image" onerror="this.src='${fishItem.image}'">
+            <h2 class="modal-fish-name">${fishName}</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6;">${fishDescription}</p>
             
             <div class="info-grid">
                 <div class="info-item">
-                    <div class="info-label">Рідкість</div>
+                    <div class="info-label">${i18n.t('rarity')}</div>
                     <div class="info-value" style="color: var(--rarity-color);">${fishItem.rarity}</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Розмір</div>
+                    <div class="info-label">${i18n.t('size')}</div>
                     <div class="info-value">${fishItem.size}</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Ціна</div>
-                    <div class="info-value">${fishItem.price} монет</div>
+                    <div class="info-label">${i18n.t('price')}</div>
+                    <div class="info-value">${fishItem.price} ${i18n.t('coins')}</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Улюблена наживка</div>
-                    <div class="info-value">${bait?.name || 'Невідома'}</div>
+                    <div class="info-label">${i18n.t('favoriteBait')}</div>
+                    <div class="info-value">${baitName}</div>
                 </div>
                 <div class="info-item" style="grid-column: 1 / -1;">
-                    <div class="info-label">Місця риболовлі</div>
+                    <div class="info-label">${i18n.t('fishingLocations')}</div>
                     <div class="info-value">${locations}</div>
                 </div>
             </div>

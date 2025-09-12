@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,15 @@
     
     <header>
         <h1>Destiny Rising - Гід по рибалці</h1>
-        <div class="mode-toggle">
-            <button id="beauty-mode" class="mode-btn">Краса</button>
-            <button id="performance-mode" class="mode-btn">Продуктивність</button>
+        <div class="header-controls">
+            <div id="lang-selector" class="lang-selector">
+                <div class="lang-option active" data-lang="en">EN</div>
+                <div class="lang-option" data-lang="uk">UK</div>
+            </div>
+            <div class="mode-toggle">
+                <button id="beauty-mode" class="mode-btn">Краса</button>
+                <button id="performance-mode" class="mode-btn">Продуктивність</button>
+            </div>
         </div>
     </header>
     
@@ -70,6 +76,9 @@
     <script src="js/data/baits.js"></script>
     <script src="js/data/locations.js"></script>
     <script src="js/data/fish.js"></script>
+    <script src="js/locales/en.js"></script>
+    <script src="js/locales/uk.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
