@@ -294,7 +294,7 @@ function openFishModal(fishId) {
     const modalContent = document.getElementById('modal-fish-details');
     modalContent.innerHTML = `
         <div class="modal-fish-info rarity-${fishItem.rarity}">
-            <img src="${fishItem.largeImage}" alt="${fishName}" class="modal-fish-image" onerror="this.src='${fishItem.image}'">
+            <img src="${fishItem.image}" alt="${fishName}" class="modal-fish-image">
             <h2 class="modal-fish-name">${fishName}</h2>
             <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6;">${fishDescription}</p>
             

@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destiny Rising - Гід по рибалці</title>
+    <title>Fishing Guide - Destiny: Rising</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="animated-bg" id="animated-bg"></div>
     
     <header>
-        <h1>Destiny Rising - Гід по рибалці</h1>
+        <h1>Destiny: Rising - Fishing Guide</h1>
         <div class="header-controls">
             <div id="lang-selector" class="lang-selector">
                 <div class="lang-option active" data-lang="en" style="cursor: pointer; padding: 6px 10px; background: rgba(26, 31, 46, 0.6); color: #b0bec5; border: none; font-size: 0.8rem;">EN</div>
                 <div class="lang-option" data-lang="uk" style="cursor: pointer; padding: 6px 10px; background: rgba(26, 31, 46, 0.6); color: #b0bec5; border: none; font-size: 0.8rem;">UK</div>
             </div>
             <div class="mode-toggle">
-                <button id="beauty-mode" class="mode-btn">Краса</button>
-                <button id="performance-mode" class="mode-btn">Продуктивність</button>
+                <button id="beauty-mode" class="mode-btn">Beauty</button>
+                <button id="performance-mode" class="mode-btn">Performance</button>
             </div>
         </div>
     </header>
@@ -28,11 +28,11 @@
             <div class="controls">
                 <div class="sort-controls">
                     <div class="sort-left">
-                        <label>Сортування:</label>
+                        <label>Sorting:</label>
                         <div class="sort-buttons" id="sort-buttons">
-                            <div class="sort-toggle active" data-sort="name">За назвою</div>
-                            <div class="sort-toggle" data-sort="rarity">За рідкістю</div>
-                            <div class="sort-toggle" data-sort="price">За ціною</div>
+                            <div class="sort-toggle active" data-sort="name">By Name</div>
+                            <div class="sort-toggle" data-sort="rarity">By Rarity</div>
+                            <div class="sort-toggle" data-sort="price">By Price</div>
                         </div>
                     </div>
                     <div class="size-controls">
@@ -44,15 +44,15 @@
                 
                 <div class="filter-controls">
                     <div class="filter-group">
-                        <label>Наживка:</label>
+                        <label>Bait:</label>
                         <div id="bait-filters"></div>
                     </div>
                     <div class="filter-group">
-                        <label>Місце:</label>
+                        <label>Location:</label>
                         <div id="location-filters"></div>
                     </div>
                     <div class="filter-group">
-                        <label>Рідкість:</label>
+                        <label>Rarity:</label>
                         <div id="rarity-filters"></div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
     </div>
 
     <div id="performance-tooltip" class="performance-tooltip">
-        Увага! Режим краси використовує інтенсивні візуальні ефекти, які можуть навантажувати відеокарту та сповільнювати роботу на слабких пристроях.
+        Warning! Beauty mode uses intensive visual effects that may load the graphics card and slow down performance on weak devices.
     </div>
 
     <script src="js/data/baits.js"></script>

@@ -49,27 +49,93 @@ class I18n {
     }
 
     getBaitName(id) {
-        return this.t(`baits.${id}.name`) || baits.find(b => b.id === id)?.name || this.t('unknown');
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.baits?.[id]?.name;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.baits?.[id]?.name;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = baits.find(b => b.id === id)?.name;
+        if (rawData) return rawData;
+        
+        return this.t('unknown');
     }
 
     getBaitDescription(id) {
-        return this.t(`baits.${id}.description`) || baits.find(b => b.id === id)?.description || '';
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.baits?.[id]?.description;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.baits?.[id]?.description;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = baits.find(b => b.id === id)?.description;
+        return rawData || '';
     }
 
     getLocationName(id) {
-        return this.t(`locations.${id}.name`) || fishingLocations.find(l => l.id === id)?.name || this.t('unknown');
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.locations?.[id]?.name;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.locations?.[id]?.name;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = fishingLocations.find(l => l.id === id)?.name;
+        if (rawData) return rawData;
+        
+        return this.t('unknown');
     }
 
     getLocationArea(id) {
-        return this.t(`locations.${id}.location`) || fishingLocations.find(l => l.id === id)?.location || '';
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.locations?.[id]?.location;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.locations?.[id]?.location;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = fishingLocations.find(l => l.id === id)?.location;
+        return rawData || '';
     }
 
     getFishName(id) {
-        return this.t(`fish.${id}.name`) || fish.find(f => f.id === id)?.name || this.t('unknown');
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.fish?.[id]?.name;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.fish?.[id]?.name;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = fish.find(f => f.id === id)?.name;
+        if (rawData) return rawData;
+        
+        return this.t('unknown');
     }
 
     getFishDescription(id) {
-        return this.t(`fish.${id}.description`) || fish.find(f => f.id === id)?.description || '';
+        // 1. Поточна локалізація
+        const currentLang = this.translations[this.currentLang]?.fish?.[id]?.description;
+        if (currentLang) return currentLang;
+        
+        // 2. Англійська локалізація
+        const englishLang = this.translations[this.fallbackLang]?.fish?.[id]?.description;
+        if (englishLang) return englishLang;
+        
+        // 3. Сирі дані
+        const rawData = fish.find(f => f.id === id)?.description;
+        return rawData || '';
     }
 
     updateUI() {
